@@ -19,7 +19,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Header title='Welcome'/>
+      <Header title={userNumber ? "Let's Play" : 'Welcome'}/>
       {content}
     </View>
   );
