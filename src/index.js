@@ -1,14 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Header } from './components';
 import colors from './constans/colors';
-import { StartGame } from './screens/index';
+import { Game, StartGame } from './screens/index';
 
 export default function App() {
+
+  const [userNumber, setUserNumber] = useState(null);
+
+  const onStartGame = (selectedNumber) =>{
+    setUserNumber(selectedNumber);
+  }
+
+  let content = <StartGame onStartGame={onStartGame}/>
+  if(userNumber){
+    content = <Game selectedNumber={userNumber}/>
+  }
+
   return (
     <View style={styles.container}>
       <Header title='Welcome'/>
-      <StartGame/>
+      {content}
     </View>
   );
 }
