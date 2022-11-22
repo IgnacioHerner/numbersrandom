@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Header } from './components';
 import colors from './constans/colors';
 import { Game, StartGame } from './screens/index';
+import { useFonts } from 'expo-font';
 
 export default function App() {
+
+  const [loaded] = useFonts({
+    'Lato-Regular' : require('../assets/fonts/Lato-Regular.ttf'),
+    'Lato-Bold' : require('../assets/fonts/Lato-Bold.ttf'),
+    'Lato-Italic' : require('../assets/fonts/Lato-Italic.ttf'),
+  })
+
+
 
   const [userNumber, setUserNumber] = useState(null);
 
@@ -15,6 +24,17 @@ export default function App() {
   let content = <StartGame onStartGame={onStartGame}/>
   if(userNumber){
     content = <Game selectedNumber={userNumber}/>
+  }
+
+  if(!loaded){
+    return(
+      <View style={styles.containerLoader}>
+        <ActivityIndicator 
+          size='large'
+          color={colors.primary}
+        />
+      </View>
+    )
   }
 
   return (
@@ -29,6 +49,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+  },
+  containerLoader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   
 });
