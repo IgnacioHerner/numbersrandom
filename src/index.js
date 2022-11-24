@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { Header } from './components';
 import colors from './constans/colors';
-import { Game, StartGame } from './screens/index';
+import { Game, StartGame, GameOver } from './screens/index';
 import { useFonts } from 'expo-font';
 
 export default function App() {
@@ -16,14 +16,27 @@ export default function App() {
 
 
   const [userNumber, setUserNumber] = useState(null);
+  const [guessRounds, setGuessRounds] = useState(0);
 
   const onStartGame = (selectedNumber) =>{
     setUserNumber(selectedNumber);
   }
+  
+  const onGameOver = (round) => {
+    setGuessRounds(round);
+  }
+
+  const onRestart = () => {
+    setUserNumber(null);
+    setGuessRounds(0);
+  }
 
   let content = <StartGame onStartGame={onStartGame}/>
-  if(userNumber){
-    content = <Game selectedNumber={userNumber}/>
+  const title = userNumber ? "Let's Play" : "Welcome";
+  if(userNumber && guessRounds <= 0){
+    content = <Game selectedNumber={userNumber} onGameOver={onGameOver}/>
+  } else if (guessRounds > 0) {
+    content = <GameOver round={guessRounds} selectedNumber={userNumber} onRestart={onRestart} />
   }
 
   if(!loaded){
