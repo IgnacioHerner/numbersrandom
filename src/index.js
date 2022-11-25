@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, View, } from 'react-native';
 import { Header } from './components';
 import colors from './constans/colors';
 import { Game, StartGame, GameOver } from './screens/index';
