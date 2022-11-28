@@ -44,7 +44,7 @@ const StartGame = ({onStartGame}) => {
     ) : null;
 
     return (
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'height' : 'padding'} style={containerScroll}>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'height' : 'padding'} style={styles.containerScroll}>
             <TouchableWithoutFeedback onPress={() => {
                 Keyboard.dismiss()
             }}>
